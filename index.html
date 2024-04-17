@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+    <style>
+
+    :root{
+        margin: 0;
+    }
+
+    *{
+        --primary: var(--primary-color);
+        --secondary: var(--secondary-color);
+        --text: var(--text-color);
+    }
+
+    /* Light themes */
+    .theme-sunny {
+        --primary-color: #c5fe9e; /* Yellow */
+        --secondary-color: #04973d; /* Light Yellow */
+        --text-color: #333; /* Dark Gray */
+    }
+    .theme-fairy {
+        --primary-color: #f8fd9f;
+        --secondary-color:  #d66d1c;
+        --text-color: #333; 
+    }
+    .theme-snowy {
+        --primary-color: #ffffff; /* White */
+        --secondary-color: #1dc4ea; /* Light Gray */
+        --text-color: #333; /* Dark Gray */
+    }
+
+    /* Dark themes */
+    .theme-gloomy,
+    .theme-moody,
+    .theme-rainy {
+        --primary-color: #13034b; /* Dark Gray */
+        --secondary-color: #fbff28; /* Gray */
+        --text-color: #ffffff; /* White */
+    }
+
+    /* Apply theme colors to body */
+    body {
+        color: var(--text);
+        background-color: var(--primary);
+        border-color: var(--primary);
+        position: relative; /* Ensure the body is positioned */
+        overflow: scroll; /* Hide overflow to prevent scrollbars */
+    }
+
+    /* Light theme for specific elements */
+    body:not(.theme-gloomy):not(.theme-moody):not(.theme-rainy) {
+        --primary-color: #ffffff; /* White */
+        --secondary-color: #f8f9fa; /* Light Gray */
+        --text-color: #333; /* Dark Gray */
+    }
+
+    /* Apply light theme colors to specific elements */
+    body:not(.theme-gloomy):not(.theme-moody):not(.theme-rainy) .navbar,
+    body:not(.theme-gloomy):not(.theme-moody):not(.theme-rainy) .main-content,
+    body:not(.theme-gloomy):not(.theme-moody):not(.theme-rainy) footer {
+        background-color: var(--primary);
+        color: var(--text);
+    }
+
+    /* Apply dark theme colors to specific elements */
+    body.theme-gloomy .navbar,
+    body.theme-gloomy .main-content,
+    body.theme-gloomy footer,
+    body.theme-moody .navbar,
+    body.theme-moody .main-content,
+    body.theme-moody footer,
+    body.theme-rainy .navbar,
+    body.theme-rainy .main-content,
+    body.theme-rainy footer {
+        background-color: var(--primary);
+        color: var(--text);
+    }
+
+    .container{
+        margin: auto;
+        margin-top: 2rem;
+    }
+
+    .animated-background div{
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        margin: auto;  
+    }
+
+    /* Animated background image */
+    #animated-background1,
+    #animated-background2,
+    #animated-background3 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        max-width: 120%;
+        height: auto;
+        opacity: 0.5;
+        z-index: 0; /* Set z-index below content */
+    }
+
+    #animated-background1{
+        animation: rotateBackground 500s linear infinite; /* Adjust animation duration as needed */
+    }
+
+    #animated-background2 {
+        animation: rotateBackground2 600s linear infinite; /* Adjust animation duration as needed */
+    }
+
+    #animated-background3 {
+        animation: rotateBackground 300s linear infinite; /* Adjust animation duration as needed */
+    }
+
+    @keyframes rotateBackground {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(-360deg);
+        }
+    } 
+
+    @keyframes rotateBackground2 {
+        0% {
+            transform: rotate(-360deg);
+        }
+        100% {
+            transform: rotate(0deg);
+        }
+    } 
+
+    footer {
+        padding-top: 0.1rem;
+        margin-top: 0.5rem;
+    }
+
+    </style>
+    <body>
+        <!-- Animated background image -->
+        <div class="animated-background">
+            <div><img id="animated-background1" src="" alt="background-image1" /></div>
+            <div><img id="animated-background2" src="" alt="background-image2" /></div>
+            <div><img id="animated-background3" src="" alt="background-image3" /></div>
+        </div>
+        <!-- Navbar -->
+        <header>
+            <nav class="navbar navbar-expand-lg sticky-top bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">waldzy.dev</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="cv.html">Portfolio</a>
+                            </li>
+                        </ul>
+                        <!-- Dropdown menu moved to the left corner -->
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Theme
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item theme-switch" href="#" data-theme="sunny" id="sunnyTheme">Sunny</a></li>
+                                    <li><a class="dropdown-item theme-switch" href="#" data-theme="fairy" id="fairyTheme">Fairy</a></li>
+                                    <li><a class="dropdown-item theme-switch" href="#" data-theme="snowy" id="snowyTheme">Snowy</a></li>
+                                    <li><a class="dropdown-item theme-switch" href="#" data-theme="gloomy" id="gloomyTheme">Gloomy</a></li>
+                                    <li><a class="dropdown-item theme-switch" href="#" data-theme="moody" id="moodyTheme">Moody</a></li>
+                                    <li><a class="dropdown-item theme-switch" href="#" data-theme="rainy" id="rainyTheme">Rainy</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!--Main content-->
+        <main class="main-content">
+            <div id="banner">
+                <div class="flip-card-container">
+                    <div class="flip-card">
+                      <div class="card-front">
+                        <figure>
+                          <figcaption>Frontend</figcaption>
+                        </figure>
+                  
+                        <ul>
+                          <li>Detail 1</li>
+                          <li>Detail 2</li>
+                          <li>Detail 3</li>
+                          <li>Detail 4</li>
+                          <li>Detail 5</li>
+                        </ul>
+                      </div>
+                  
+                      <div class="card-back">
+                        <button>Book</button>
+                      </div>
+                  
+                    </div>
+                  </div>
+                  <!-- /flip-card-container -->
+                  
+                  <!-- flip-card-container -->
+                  <div class="flip-card-container">
+                    <div class="flip-card">
+                  
+                      <div class="card-front">
+                        <figure>
+                          <figcaption>Backend</figcaption>
+                        </figure>
+                  
+                        <ul>
+                          <li>Detail 1</li>
+                          <li>Detail 2</li>
+                          <li>Detail 3</li>
+                          <li>Detail 4</li>
+                          <li>Detail 5</li>
+                        </ul>
+                      </div>
+                  
+                      <div class="card-back">
+                        <button>Book</button>
+                      </div>
+                  
+                    </div>
+                  </div>
+                  <!-- /flip-card-container -->
+                  
+                  <!-- flip-card-container -->
+                  <div class="flip-card-container">
+                    <div class="flip-card">
+                      <div class="card-front">
+                        <figure>
+                          <figcaption>Other</figcaption>
+                        </figure>
+                  
+                        <ul>
+                          <li>Detail 1</li>
+                          <li>Detail 2</li>
+                          <li>Detail 3</li>
+                          <li>Detail 4</li>
+                          <li>Detail 5</li>
+                        </ul>
+                      </div>
+                  
+                      <div class="card-back">
+                        <button>Book</button>
+                    </div>
+                  </div>
+            </div>
+            <div class="container">
+                <div class="row mt-4">
+                    <!-- Big Banner -->
+                    <div class="col-md-8">
+                        <div class="card">
+                            <img src="https://via.placeholder.com/800x400" class="card-img-top" alt="Big Banner">
+                            <div class="card-body">
+                                <h5 class="card-title">Big Banner Article</h5>
+                                <p class="card-text">This is a placeholder text for the big banner article.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Small Box -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Small Box">
+                            <div class="card-body">
+                                <h5 class="card-title">Small Box Article</h5>
+                                <p class="card-text">This is a placeholder text for the small box article.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <!-- Three Equal Boxes -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Equal Box 1">
+                            <div class="card-body">
+                                <h5 class="card-title">Box 1</h5>
+                                <p class="card-text">This is a placeholder text for the first equal box article.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Equal Box 2">
+                            <div class="card-body">
+                                <h5 class="card-title">Box 2</h5>
+                                <p class="card-text">This is a placeholder text for the second equal box article.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Equal Box 3">
+                            <div class="card-body">
+                                <h5 class="card-title">Box 3</h5>
+                                <p class="card-text">This is a placeholder text for the third equal box article.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <!-- Two Long Article Containers -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Long Article Container 1</h5>
+                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi voluptatibus quaerat ad ratione error explicabo incidunt et, deserunt quibusdam. Consequuntur in, tenetur repellat pariatur sint illo ipsum corrupti amet magni.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Long Article Container 2</h5>
+                                <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore cumque non repellat, alias vel doloribus. Quam, sint nihil quos eveniet adipisci deleniti quo nam nobis numquam eos ipsam, asperiores aliquam!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="text-sm-start bg-body-tertiary text-muted">
+        <section class="">
+            <div class="container mt-4">
+                <div class="row mt-3">
+                    <div class="col-sm-3 col-md-4 col-md-3 mx-auto mb-4">
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            <i class="fas fa-gem me-2">waldzy.dev</i>
+                        </h6>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit quis ducimus dignissimos
+                            laboriosam dolore? Ullam, in libero quisquam vero vitae asperiores rem totam aspernatur sunt? Ullam
+                            cum quaerat iure eum?
+                        </p>
+                    </div>
+
+                    <div class="col-sm-4 col-md-3 col-md-3 mx-auto mb-md-0 mb-4">
+                        <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                        <p><i class="fas fa-home me-2"></i> Moscow, RF</p>
+                        <p><i class="fas fa-envelope me-2"></i> gggzzzegor@gmail.com</p>
+                        <p><i class="fas fa-phone me-2"></i> +7 915 908 08 04</p>
+                        <p><i class="fas fa-print me-2"></i> tg: @cursedzy</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Copyright -->
+        <div class="p-2" style="background-color: rgb(179, 179, 179);">
+            <p style="font-size: 0.75rem;">© 2024 Copyright by @cursedzy</p>
+        </div>
+    </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script> 
+    <script src="https://unpkg.com/vue@3.2.21/dist/vue.global.prod.js"></script>
+    <!--<script src="script.js"></script>-->
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            const savedTheme = localStorage.getItem('selectedTheme');
+            let theme;
+
+            // Check if a specific theme has been chosen
+            const overrideTheme = document.querySelector(`#${savedTheme}Theme`);
+            if (overrideTheme) {
+                theme = savedTheme;
+            } else {
+                // Apply theme based on local time
+                const currentHour = new Date().getUTCHours() + 3; // Adjust for GMT+3 timezone
+                if (currentHour >= 5 && currentHour < 8) {
+                    theme = 'fairy';
+                } else if (currentHour >= 8 && currentHour < 12) {
+                    theme = 'sunny';
+                } else if (currentHour >= 12 && currentHour < 16) {
+                    theme = 'snowy';
+                } else if (currentHour >= 17 && currentHour < 20) {
+                    theme = 'rainy';
+                } else if (currentHour >= 20 && currentHour < 23) {
+                    theme = 'moody';
+                } else {
+                    theme = 'gloomy';
+                }
+            }
+
+            await applyTheme(theme);
+
+            // Event listeners for theme switching buttons
+            const themeButtons = document.querySelectorAll('.theme-switch');
+            themeButtons.forEach(button => {
+                button.addEventListener('click', async function () {
+                    const theme = this.getAttribute('data-theme');
+                    await applyTheme(theme);
+                });
+            });
+        });
+
+        async function applyTheme(theme) {
+            return new Promise((resolve, reject) => {
+                document.body.className = '';
+                document.body.classList.add('theme-' + theme);
+
+                // Save the selected theme to localStorage
+                localStorage.setItem('selectedTheme', theme);
+
+                // Update the background images based on the theme
+                const backgroundImage1 = `backgrounds/background-${theme}1.png`;
+                document.getElementById('animated-background1').src = backgroundImage1;
+
+                const backgroundImage2 = `backgrounds/background-${theme}2.png`;
+                document.getElementById('animated-background2').src = backgroundImage2;
+
+                const backgroundImage3 = `backgrounds/background-${theme}3.png`;
+                document.getElementById('animated-background3').src = backgroundImage3;
+
+                // Resolve the promise
+                resolve();
+            });
+        }
+
+    </script>
+</body>
+</html>
+
